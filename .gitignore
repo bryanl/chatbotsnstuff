@@ -1,0 +1,5 @@
+/pkg
+/bin
+/vendor/pkg
+/vendor/bin
+/.vscode
