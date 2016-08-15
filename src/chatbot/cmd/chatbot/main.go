@@ -8,8 +8,12 @@ import (
 	"github.com/Sirupsen/logrus"
 )
 
+const (
+	botName = "BOT"
+)
+
 func main() {
-	gw := chatbot.NewLocalGateway()
+	gw := chatbot.NewLocalGateway(botName)
 
 	errChan := make(chan error)
 

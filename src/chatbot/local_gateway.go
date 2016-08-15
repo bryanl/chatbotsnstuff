@@ -48,19 +48,22 @@ func (l *localClient) Write(msg string) error {
 // LocalGateway is a gateway for chatting locally. It takes input from
 // stdin, and talks to stdout.
 type LocalGateway struct {
+	botName  string
 	logger   *logrus.Entry
 	cc       *chatChans
 	doneChan chan struct{}
 }
 
 // NewLocalGateway creates an instance of LocalGateway.
-func NewLocalGateway() *LocalGateway {
+func NewLocalGateway(botName string) *LocalGateway {
 	logger := logrus.StandardLogger().WithFields(logrus.Fields{
 		"gateway": "local",
+		"botName": botName,
 	})
 
 	return &LocalGateway{
-		logger: logger,
+		botName: botName,
+		logger:  logger,
 	}
 }
 
@@ -199,7 +202,7 @@ func (g *LocalGateway) handleConnection(conn net.Conn, cc *chatChans) {
 // Tell sends a message to a destination.
 func (g *LocalGateway) Tell(dest Destination, msg string) error {
 	g.cc.msg <- localMessage{
-		userName: "BOT",
+		userName: g.botName,
 		msg:      msg,
 	}
 
