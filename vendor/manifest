@@ -42,11 +42,30 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/nlopes/slack",
+			"repository": "https://github.com/nlopes/slack",
+			"revision": "4feee83bb2b31d790977ce727a028c6a542c72c7",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/pkg/errors",
+			"repository": "https://github.com/pkg/errors",
+			"revision": "a22138067af1c4942683050411a841ade67fe1eb",
+			"branch": "master"
+		},
+		{
 			"importpath": "golang.org/x/net/proxy",
 			"repository": "https://go.googlesource.com/net",
 			"revision": "07b51741c1d6423d4a6abab1c49940ec09cb1aaf",
 			"branch": "master",
 			"path": "/proxy"
+		},
+		{
+			"importpath": "golang.org/x/net/websocket",
+			"repository": "https://go.googlesource.com/net",
+			"revision": "07b51741c1d6423d4a6abab1c49940ec09cb1aaf",
+			"branch": "master",
+			"path": "/websocket"
 		},
 		{
 			"importpath": "gopkg.in/airbrake/gobrake.v2",

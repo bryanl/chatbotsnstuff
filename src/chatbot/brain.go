@@ -17,6 +17,9 @@ func newBrain() *brain {
 
 // Parse parses a potential bot command.
 func (b *brain) Parse(msg string) state {
+	if msg == "" {
+		return unknownState([]string{})
+	}
 	fields := strings.Fields(msg)
 	if isBotCommand(fields) {
 		command := strings.TrimPrefix(fields[0], botCommandPrefix)

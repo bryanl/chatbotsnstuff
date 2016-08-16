@@ -20,6 +20,11 @@ func unknownState(fields []string) state {
 
 func weatherSate(fields []string) state {
 	return func(e Event) state {
+		if len(fields) != 2 {
+			e.Gateway.Tell(Destination(e.Creator), "usage: *!weather <zip>*")
+			return nil
+		}
+
 		wr, err := weatherByZip(fields[1])
 		if err != nil {
 			return errorState(err)

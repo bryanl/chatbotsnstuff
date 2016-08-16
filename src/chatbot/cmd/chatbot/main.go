@@ -13,6 +13,8 @@ type specification struct {
 	WeatherAPIKey string `envconfig:"weather_api_key" required:"true"`
 	BotName       string `envconfig:"bot_name" default:"TwikiTheBot"`
 	IRCChan       string `envconfig:"irc_chan" required:"true"`
+	SlackChan     string `envconfig:"slack_chan" required:"true"`
+	SlackToken    string `envconfig:"slack_token" required:"true"`
 }
 
 func main() {
@@ -34,8 +36,9 @@ func main() {
 
 	localGw := initLocalGW(&s, errChan)
 	ircGw := initIRCGW(&s, errChan)
+	slackGw := initSlackGW(&s, errChan)
 
-	cb := chatbot.New(localGw, ircGw)
+	cb := chatbot.New(localGw, ircGw, slackGw)
 	go cb.Start(errChan)
 
 	done := make(chan bool)
@@ -59,4 +62,8 @@ func initLocalGW(s *specification, errChan chan error) chatbot.Gateway {
 
 func initIRCGW(s *specification, errChan chan error) chatbot.Gateway {
 	return chatbot.NewIRCGateway(s.BotName, s.IRCChan)
+}
+
+func initSlackGW(s *specification, errChan chan error) chatbot.Gateway {
+	return chatbot.NewSlackGateway(s.SlackToken, s.BotName, s.SlackChan)
 }

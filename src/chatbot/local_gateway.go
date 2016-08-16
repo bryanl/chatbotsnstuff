@@ -59,7 +59,7 @@ var _ Gateway = (*LocalGateway)(nil)
 
 // NewLocalGateway creates an instance of LocalGateway.
 func NewLocalGateway(botName string) *LocalGateway {
-	logger := logrus.StandardLogger().WithFields(logrus.Fields{
+	logger := logrus.WithFields(logrus.Fields{
 		"gateway": "local",
 		"botName": botName,
 	})
