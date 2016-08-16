@@ -8,17 +8,45 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/fluffle/goirc/client",
+			"repository": "https://github.com/fluffle/goirc",
+			"revision": "20e4ea9b00de09f043d5e6fac9f135cd2a509572",
+			"branch": "master",
+			"path": "/client"
+		},
+		{
+			"importpath": "github.com/fluffle/goirc/logging",
+			"repository": "https://github.com/fluffle/goirc",
+			"revision": "20e4ea9b00de09f043d5e6fac9f135cd2a509572",
+			"branch": "master",
+			"path": "/logging"
+		},
+		{
+			"importpath": "github.com/fluffle/goirc/state",
+			"repository": "https://github.com/fluffle/goirc",
+			"revision": "20e4ea9b00de09f043d5e6fac9f135cd2a509572",
+			"branch": "master",
+			"path": "/state"
+		},
+		{
+			"importpath": "github.com/golang/mock/gomock",
+			"repository": "https://github.com/golang/mock",
+			"revision": "bd3c8e81be01eef76d4b503f5e687d2d1354d2d9",
+			"branch": "master",
+			"path": "/gomock"
+		},
+		{
 			"importpath": "github.com/kelseyhightower/envconfig",
 			"repository": "https://github.com/kelseyhightower/envconfig",
 			"revision": "49e88841e458491c935563aac0eb7e871c3375f4",
 			"branch": "master"
 		},
 		{
-			"importpath": "golang.org/x/tools/cmd/stringer",
-			"repository": "https://go.googlesource.com/tools",
-			"revision": "3fe2afc9e626f32e91aff6eddb78b14743446865",
+			"importpath": "golang.org/x/net/proxy",
+			"repository": "https://go.googlesource.com/net",
+			"revision": "07b51741c1d6423d4a6abab1c49940ec09cb1aaf",
 			"branch": "master",
-			"path": "/cmd/stringer"
+			"path": "/proxy"
 		},
 		{
 			"importpath": "gopkg.in/airbrake/gobrake.v2",
