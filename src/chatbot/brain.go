@@ -25,7 +25,7 @@ func (b *brain) Parse(msg string) state {
 		command := strings.TrimPrefix(fields[0], botCommandPrefix)
 		switch command {
 		case "weather":
-			return weatherSate(fields)
+			return weatherState(fields)
 		default:
 			return unknownState(fields)
 		}
