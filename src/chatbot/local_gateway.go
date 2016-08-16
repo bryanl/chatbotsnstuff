@@ -141,6 +141,7 @@ func (g *LocalGateway) handleMessages(cc *chatChans) {
 				Type:    MessageEvent,
 				Creator: msg.userName,
 				Payload: msg.msg,
+				Gateway: g,
 			}
 
 			for conn, ch := range clients {
@@ -152,7 +153,8 @@ func (g *LocalGateway) handleMessages(cc *chatChans) {
 			}
 		case client := <-cc.add:
 			g.events <- Event{
-				Type: AddEvent,
+				Type:    AddEvent,
+				Gateway: g,
 				// Creator: client.
 			}
 
@@ -208,7 +210,6 @@ func (g *LocalGateway) handleConnection(conn net.Conn, cc *chatChans) {
 	for {
 		n, err := conn.Read(buf)
 		if err != nil || n == 0 {
-			g.logger.WithError(err).Error("could not read input")
 			break
 		}
 

@@ -6,13 +6,26 @@ import (
 	"os/signal"
 
 	"github.com/Sirupsen/logrus"
+	"github.com/kelseyhightower/envconfig"
 )
 
 const (
 	botName = "BOT"
 )
 
+type specification struct {
+	WeatherAPIKey string `envconfig:"weather_api_key" required:"true"`
+}
+
 func main() {
+	var s specification
+	err := envconfig.Process("chatbot", &s)
+	if err != nil {
+		logrus.WithError(err).Fatal("unable to parse configuration")
+	}
+
+	chatbot.WeatherAPIKey = s.WeatherAPIKey
+
 	gw := chatbot.NewLocalGateway(botName)
 
 	errChan := make(chan error)

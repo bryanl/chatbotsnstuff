@@ -3,3 +3,4 @@
 /vendor/pkg
 /vendor/bin
 /.vscode
+.envrc

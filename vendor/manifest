@@ -8,6 +8,12 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/kelseyhightower/envconfig",
+			"repository": "https://github.com/kelseyhightower/envconfig",
+			"revision": "49e88841e458491c935563aac0eb7e871c3375f4",
+			"branch": "master"
+		},
+		{
 			"importpath": "golang.org/x/tools/cmd/stringer",
 			"repository": "https://go.googlesource.com/tools",
 			"revision": "3fe2afc9e626f32e91aff6eddb78b14743446865",

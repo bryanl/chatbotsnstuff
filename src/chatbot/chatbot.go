@@ -14,6 +14,7 @@ type Destination string
 // Event is a bot event.
 type Event struct {
 	Type    EventType
+	Gateway Gateway
 	Creator string
 	Payload interface{}
 }
@@ -40,6 +41,7 @@ type Gateway interface {
 // Chatbot is a chatbot.
 type Chatbot struct {
 	gateways  []Gateway
+	brain     *brain
 	eventChan chan Event
 	logger    *logrus.Entry
 }
@@ -47,6 +49,7 @@ type Chatbot struct {
 // New creates an instance of Chatbot.
 func New(gateways ...Gateway) *Chatbot {
 	return &Chatbot{
+		brain:    newBrain(),
 		gateways: gateways,
 		logger:   logrus.WithField("chatbot", "main"),
 	}
@@ -59,6 +62,15 @@ func (c *Chatbot) Start(errChan chan error) {
 	go func() {
 		for event := range c.eventChan {
 			c.logger.WithField("event", event).Info("received event")
+
+			switch event.Type {
+			case MessageEvent:
+				s := c.brain.Parse(event.Payload.(string))
+
+				for s != nil {
+					s = s(event)
+				}
+			}
 		}
 	}()
 
