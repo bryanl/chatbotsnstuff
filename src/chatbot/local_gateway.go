@@ -45,8 +45,8 @@ func (l *localClient) Write(msg string) error {
 	return err
 }
 
-// LocalGateway is a gateway for chatting locally. It takes input from
-// stdin, and talks to stdout.
+// LocalGateway is a gateway for chatting locally. It takes input
+// from a TCP socket.
 type LocalGateway struct {
 	botName  string
 	logger   *logrus.Entry
