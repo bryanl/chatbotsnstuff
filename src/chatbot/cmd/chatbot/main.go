@@ -19,11 +19,12 @@ func main() {
 
 	go func() {
 		for err := range errChan {
-			logrus.WithError(err).Error("local chat gateway failure")
+			logrus.WithError(err).Error("chatbot failure")
 		}
 	}()
 
-	go gw.Start(errChan)
+	cb := chatbot.New(gw)
+	go cb.Start(errChan)
 
 	done := make(chan bool)
 	c := make(chan os.Signal, 1)

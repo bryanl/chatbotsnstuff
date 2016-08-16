@@ -8,6 +8,13 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "golang.org/x/tools/cmd/stringer",
+			"repository": "https://go.googlesource.com/tools",
+			"revision": "3fe2afc9e626f32e91aff6eddb78b14743446865",
+			"branch": "master",
+			"path": "/cmd/stringer"
+		},
+		{
 			"importpath": "gopkg.in/airbrake/gobrake.v2",
 			"repository": "https://gopkg.in/airbrake/gobrake.v2",
 			"revision": "31c8ff1fb8b79a6947e6565e9a6df535f98a6b94",

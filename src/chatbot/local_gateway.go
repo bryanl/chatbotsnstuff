@@ -52,7 +52,10 @@ type LocalGateway struct {
 	logger   *logrus.Entry
 	cc       *chatChans
 	doneChan chan struct{}
+	events   chan Event
 }
+
+var _ Gateway = (*LocalGateway)(nil)
 
 // NewLocalGateway creates an instance of LocalGateway.
 func NewLocalGateway(botName string) *LocalGateway {
@@ -64,7 +67,13 @@ func NewLocalGateway(botName string) *LocalGateway {
 	return &LocalGateway{
 		botName: botName,
 		logger:  logger,
+		events:  make(chan Event),
 	}
+}
+
+// Events are events from the LocalGateway.
+func (g *LocalGateway) Events() <-chan Event {
+	return g.events
 }
 
 // Start starts the local gateway.
@@ -86,7 +95,6 @@ func (g *LocalGateway) Start(errChan chan error) {
 	go g.handleMessages(g.cc)
 
 	g.doneChan = make(chan struct{})
-
 	go func() {
 		<-g.doneChan
 		if err := listener.Close(); err != nil {
@@ -112,6 +120,8 @@ func (g *LocalGateway) Stop() {
 		g.cc.stop <- true
 	}
 
+	close(g.events)
+
 	if g.doneChan != nil {
 		g.doneChan <- struct{}{}
 	}
@@ -127,6 +137,12 @@ func (g *LocalGateway) handleMessages(cc *chatChans) {
 				"userName": msg.userName,
 			}).Info("sending message")
 
+			g.events <- Event{
+				Type:    MessageEvent,
+				Creator: msg.userName,
+				Payload: msg.msg,
+			}
+
 			for conn, ch := range clients {
 				if conn != msg.sender {
 					go func(userName, out string, mch chan<- string) {
@@ -135,6 +151,11 @@ func (g *LocalGateway) handleMessages(cc *chatChans) {
 				}
 			}
 		case client := <-cc.add:
+			g.events <- Event{
+				Type: AddEvent,
+				// Creator: client.
+			}
+
 			clients[client.conn] = client.ch
 		case client := <-cc.rm:
 			delete(clients, client.conn)
