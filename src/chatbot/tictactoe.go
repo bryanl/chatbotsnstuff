@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/pkg/errors"
 )
 
@@ -20,6 +21,34 @@ var (
 	ticTacToeRows = []string{"top", "middle", "bottom"}
 	ticTacToeCols = []string{"left", "center", "right"}
 )
+
+type ticTacToeScoreboard map[string]*TicTacToe
+
+func startTicTacToeState(who string, greyMatter interface{}) state {
+	if greyMatter == nil {
+		greyMatter = ticTacToeScoreboard{}
+	}
+
+	m := greyMatter.(ticTacToeScoreboard)
+	if m[who] == nil {
+		m[who] = NewTicTacToe()
+	}
+
+	logrus.WithFields(logrus.Fields{
+		"gm":  greyMatter,
+		"who": who,
+	}).Info("start tic tac toe")
+
+	return nil
+}
+
+func playTicTacToeState(fields []string, who string, greyMatter interface{}) state {
+	logrus.WithFields(logrus.Fields{
+		"who": who,
+		"gm":  greyMatter,
+	}).Info("play tic tac toe")
+	return nil
+}
 
 // TicTacToeBoard is a tic tac toe board.
 type TicTacToeBoard struct {

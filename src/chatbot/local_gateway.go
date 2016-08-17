@@ -139,6 +139,7 @@ func (g *LocalGateway) handleMessages(cc *chatChans) {
 
 			g.events <- Event{
 				Type:    MessageEvent,
+				Channel: msg.userName,
 				Creator: msg.userName,
 				Payload: msg.msg,
 				Gateway: g,

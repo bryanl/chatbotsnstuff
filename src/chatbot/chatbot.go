@@ -16,6 +16,7 @@ type Event struct {
 	Type    EventType
 	Gateway Gateway
 	Creator string
+	Channel string
 	Payload interface{}
 }
 
@@ -65,7 +66,8 @@ func (c *Chatbot) Start(errChan chan error) {
 
 			switch event.Type {
 			case MessageEvent:
-				s := c.brain.Parse(event.Payload.(string))
+
+				s := c.brain.Parse(event.Creator, event.Payload.(string))
 
 				for s != nil {
 					s = s(event)

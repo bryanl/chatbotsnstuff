@@ -64,7 +64,8 @@ func (g *IRCGateway) Start(errChan chan error) {
 				g.events <- Event{
 					Gateway: g,
 					Type:    MessageEvent,
-					Creator: line.Args[0],
+					Creator: line.Nick,
+					Channel: line.Args[0],
 					Payload: strings.Join(line.Args[1:], " "),
 				}
 				g.logger.Info("sent event")
